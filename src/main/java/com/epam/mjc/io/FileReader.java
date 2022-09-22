@@ -10,8 +10,7 @@ public class FileReader {
 
         Profile profile = new Profile();
 
-        try {
-            FileInputStream is = new FileInputStream(file);
+        try (FileInputStream is = new FileInputStream(file)) {
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) > 0) {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -26,7 +25,6 @@ public class FileReader {
                 profile.setEmail(data[2].split(":")[1].trim());
                 profile.setPhone(Long.parseLong(data[3].split(":")[1].trim()));
             }
-            is.close();
         }
         catch (IOException e) {
             e.printStackTrace();
